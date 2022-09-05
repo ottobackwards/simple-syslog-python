@@ -1,0 +1,222 @@
+# Copyright 2022 simple-syslog authors
+# All rights reserved.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+from abc import ABC, abstractmethod
+from io import TextIOBase
+from typing import Callable, Generator, Generic, TypeVar, Union
+
+from simple_syslog.builder import Builder
+from simple_syslog.exceptions import DeviationError, ParseError
+
+T = TypeVar("T")
+
+SyslogConsumer = Callable[[T], None]
+ErrorConsumer = Callable[[str, Union[ParseError, DeviationError]], None]
+
+
+class SyslogParser(ABC, Generic[T]):
+    """Abstract interface for Syslog Parsers."""
+
+    @abstractmethod
+    def parse(self, line: str) -> T:
+        """Parse a line of Syslog into T.
+
+        Args:
+            line: the line of Syslog
+
+        Returns: T
+
+        Raises:
+            DeviationError: if there is deviation that is not accounted for
+            ParseError: if there is an error parsing
+            ValueError: if line is None
+
+        """
+        pass
+
+    @abstractmethod
+    def consume(self, line: str, consumer: SyslogConsumer[T]) -> None:
+        """Consume a line of Syslog.
+
+        Args:
+            line: Line of Syslog as String
+            consumer: Called with T
+
+        Raises:
+            DeviationError: if there is deviation that is not accounted for
+            ParseError: if there is an error parsing
+            ValueError: if line or consumer are None
+
+        """
+        pass
+
+    @abstractmethod
+    def generate(self, stream: TextIOBase) -> Generator[T, None, None]:
+        """Generate T for each line of Syslog in a stream.
+
+        Args:
+            stream: A stream where each line is a line of Syslog
+
+        Returns: A Generator
+
+        Yields:
+            T: Production of Builder[T]
+
+        Raises:
+            DeviationError: if there is deviation that is not accounted for
+            ParseError: if there is an error parsing
+            ValueError: if stream is None
+
+        """
+        pass
+
+    @abstractmethod
+    def consume_stream(self, stream: TextIOBase, consumer: SyslogConsumer[T]) -> None:
+        """Consume a stream of Syslog.
+
+        Args:
+            stream: A stream where each line is a line of Syslog
+            consumer: Called with T
+
+        Raises:
+            DeviationError: if there is deviation that is not accounted for
+            ParseError: if there is an error parsing
+            ValueError: if stream or consumer are None
+
+        """
+        pass
+
+    @abstractmethod
+    def consume_stream_with_errors(
+        self,
+        stream: TextIOBase,
+        consumer: SyslogConsumer[T],
+        error_consumer: ErrorConsumer,
+    ) -> None:
+        """Consume a stream of Syslog and any errors.
+
+        Args:
+            stream: A stream where each line is a line of Syslog
+            consumer: Called with T
+            error_consumer: Called with any ParseError or DeviationError
+
+        Raises:
+            ValueError: if stream, consumer, or error_consumer are None
+        """
+        pass
+
+
+class AbstractSyslogParser(SyslogParser[T], ABC):
+    """Abstract SyslogParser."""
+
+    def __init__(self, builder: Builder[T]):
+        """Create a new instance with a given Builder.
+
+        Args:
+            builder: Builder for type T
+
+        Raises:
+            ValueError: if builder is None
+        """
+        if not builder:
+            raise ValueError("builder cannot be None")
+        self._builder = builder
+
+    def consume(self, line: str, consumer: SyslogConsumer[T]) -> None:
+        """Consume a line of Syslog.
+
+        Args:
+            line: Line of Syslog as String
+            consumer: Called with T
+
+        Raises:
+            DeviationError: if there is deviation that is not accounted for # noqa: DAR402
+            ParseError: if there is an error parsing # noqa: DAR402
+            ValueError: if line or consumer are None
+
+        """
+        if not consumer:
+            raise ValueError("consumer cannot be None")
+        consumer(self.parse(line))
+
+    def generate(self, stream: TextIOBase) -> Generator[T, None, None]:
+        """Generate T for each line of Syslog in a stream.
+
+        Args:
+            stream: A stream where each line is a line of Syslog
+
+        Returns: A Generator
+
+        Yields:
+            T: Production of Builder[T]
+
+        Raises:
+            DeviationError: if there is deviation that is not accounted for # noqa: DAR402
+            ParseError: if there is an error parsing # noqa: DAR402
+            ValueError: if stream is None
+
+        """
+        if not stream:
+            raise ValueError("stream cannot ben None")
+        line = stream.readline()
+        while line:
+            yield self.parse(line)
+
+    def consume_stream(self, stream: TextIOBase, consumer: SyslogConsumer[T]) -> None:
+        """Consume a stream of Syslog.
+
+        Args:
+            stream: A stream where each line is a line of Syslog
+            consumer: Called with T
+
+        Raises:
+            DeviationError: if there is deviation that is not accounted for # noqa: DAR402
+            ParseError: if there is an error parsing # noqa: DAR402
+            ValueError: if stream or consumer are None
+
+        """
+        if not stream:
+            raise ValueError("stream cannot ben None")
+        if not consumer:
+            raise ValueError("consumer cannot ben None")
+        line = stream.readline()
+        while line:
+            self.consume(line, consumer)
+
+    def consume_stream_with_errors(
+        self,
+        stream: TextIOBase,
+        consumer: SyslogConsumer[T],
+        error_consumer: ErrorConsumer,
+    ) -> None:
+        """Consume a stream of Syslog and any errors.
+
+        Args:
+            stream: A stream where each line is a line of Syslog
+            consumer: Called with T
+            error_consumer: Called with any ParseError or DeviationError
+
+        Raises:
+            ValueError: if stream, consumer, or error_consumer are None
+        """
+        if not stream:
+            raise ValueError("stream cannot ben None")
+        if not consumer:
+            raise ValueError("consumer cannot ben None")
+        line = stream.readline()
+        while line:
+            try:
+                self.consume(line, consumer)
+            except (DeviationError, ParseError) as e:
+                error_consumer(line, e)

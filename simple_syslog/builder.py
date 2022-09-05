@@ -105,7 +105,13 @@ class MessageConsumer:
         pass
 
 
-class DefaultBuilder(MessageConsumer, DataProducer[SyslogDataSet]):
+class Builder(MessageConsumer, DataProducer[T], ABC):
+    """Abstract interface for a class the consumes and produces T."""
+
+    pass
+
+
+class DefaultBuilder(Builder[SyslogDataSet]):
     """MessageBuilder that products a SyslogDataSet."""
 
     def __init__(

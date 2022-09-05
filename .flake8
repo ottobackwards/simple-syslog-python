@@ -1,7 +1,7 @@
 [flake8]
 application-import-names = simple_syslog,tests
 select = B,B9,BLK,C,D,DAR,E,F,I,S,W
-ignore = E203,W503,E501,D100
+ignore = E203,W503,E501,D100,B024
 max-line-length = 88
 max-complexity = 10
 docstring-convention = google

@@ -17,6 +17,13 @@ simple_syslog.data
 .. automodule:: simple_syslog.data
    :members:
 
+simple_syslog.exceptions
+--------------------------
+
+.. automodule:: simple_syslog.exceptions
+   :members:
+
+
 simple_syslog.keys
 --------------------------
 
@@ -27,6 +34,12 @@ simple_syslog.listener
 --------------------------
 
 .. automodule:: simple_syslog.listener
+   :members:
+
+simple_syslog.parser
+--------------------------
+
+.. automodule:: simple_syslog.parser
    :members:
 
 simple_syslog.policy
