@@ -14,10 +14,16 @@
 
 from abc import ABC, abstractmethod
 from io import TextIOBase
-from typing import Callable, Generator, Generic, TypeVar, Union
+from typing import Callable, Generator, Generic, Optional, TypeVar, Union
+
+from antlr4 import CommonTokenStream, InputStream
 
 from simple_syslog.builder import Builder
-from simple_syslog.exceptions import DeviationError, ParseError
+from simple_syslog.exceptions import DeviationError, ParseError, SimpleErrorListener
+from simple_syslog.generated.grammars.Rfc5424Lexer import Rfc5424Lexer
+from simple_syslog.generated.grammars.Rfc5424Parser import Rfc5424Parser
+from simple_syslog.listener import Syslog5424Listener
+from simple_syslog.specification import SyslogSpecification
 
 T = TypeVar("T")
 
@@ -120,7 +126,7 @@ class SyslogParser(ABC, Generic[T]):
 class AbstractSyslogParser(SyslogParser[T], ABC):
     """Abstract SyslogParser."""
 
-    def __init__(self, builder: Builder[T]):
+    def __init__(self, builder: Builder[T]) -> None:
         """Create a new instance with a given Builder.
 
         Args:
@@ -220,3 +226,55 @@ class AbstractSyslogParser(SyslogParser[T], ABC):
                 self.consume(line, consumer)
             except (DeviationError, ParseError) as e:
                 error_consumer(line, e)
+
+
+class Rfc5424SyslogParser(AbstractSyslogParser[T]):
+    """RFC 5424 Syslog Parser."""
+
+    def __init__(
+        self, builder: Builder[T], specification: Optional[SyslogSpecification] = None
+    ) -> None:
+        """Initialize.
+
+        Args:
+            builder: Builder implementation for type T
+            specification: which specification to parse
+        """
+        super().__init__(builder)
+        self._specification = SyslogSpecification.RFC_5424
+        if specification:
+            self._specification = specification
+
+    def parse(self, line: str) -> T:
+        """Parse a line of Syslog into T.
+
+        Args:
+            line: the line of Syslog
+
+        Returns:
+            T: Instance of type T
+
+        Raises:
+            DeviationError: if there is deviation that is not accounted for # noqa: DAR402
+            ParseError: if there is an error parsing # noqa: DAR402
+            ValueError: if line is None
+
+        """
+        self._builder.reset()
+        if not line:
+            raise ValueError("line cannot be None")
+        lexer = Rfc5424Lexer(InputStream(line))
+        parser = Rfc5424Parser(CommonTokenStream(lexer))
+        listener = Syslog5424Listener(self._builder)
+        parser.removeErrorListeners()
+        parser.addErrorListener(SimpleErrorListener())
+        parser.addParseListener(listener)
+        self._builder.start()
+        if self._specification == SyslogSpecification.RFC_5424:
+            parser.syslog_msg()
+        elif self._specification == SyslogSpecification.RFC_6587_5424:
+            parser.octet_prefixed()
+        elif self._specification == SyslogSpecification.HEROKU_HTTPS_LOG_DRAIN:
+            parser.heroku_https_log_drain()
+        self._builder.complete()
+        return self._builder.produce()
