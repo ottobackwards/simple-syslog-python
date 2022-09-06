@@ -20,9 +20,11 @@ from antlr4 import CommonTokenStream, InputStream
 
 from simple_syslog.builder import Builder
 from simple_syslog.exceptions import DeviationError, ParseError, SimpleErrorListener
+from simple_syslog.generated.grammars.Rfc3164Lexer import Rfc3164Lexer
+from simple_syslog.generated.grammars.Rfc3164Parser import Rfc3164Parser
 from simple_syslog.generated.grammars.Rfc5424Lexer import Rfc5424Lexer
 from simple_syslog.generated.grammars.Rfc5424Parser import Rfc5424Parser
-from simple_syslog.listener import Syslog5424Listener
+from simple_syslog.listener import Syslog3164Listener, Syslog5424Listener
 from simple_syslog.specification import SyslogSpecification
 
 T = TypeVar("T")
@@ -276,5 +278,55 @@ class Rfc5424SyslogParser(AbstractSyslogParser[T]):
             parser.octet_prefixed()
         elif self._specification == SyslogSpecification.HEROKU_HTTPS_LOG_DRAIN:
             parser.heroku_https_log_drain()
+        self._builder.complete()
+        return self._builder.produce()
+
+
+class Rfc3164SyslogParser(AbstractSyslogParser[T]):
+    """RFC 3164 Syslog Parser."""
+
+    def __init__(
+        self, builder: Builder[T], specification: Optional[SyslogSpecification] = None
+    ) -> None:
+        """Initialize.
+
+        Args:
+            builder: Builder implementation for type T
+            specification: which specification to parse
+        """
+        super().__init__(builder)
+        self._specification = SyslogSpecification.RFC_3164
+        if specification:
+            self._specification = specification
+
+    def parse(self, line: str) -> T:
+        """Parse a line of Syslog into T.
+
+        Args:
+            line: the line of Syslog
+
+        Returns:
+            T: Instance of type T
+
+        Raises:
+            DeviationError: if there is deviation that is not accounted for # noqa: DAR402
+            ParseError: if there is an error parsing # noqa: DAR402
+            ValueError: if line is None
+
+        """
+        self._builder.reset()
+        if not line:
+            raise ValueError("line cannot be None")
+        lexer = Rfc3164Lexer(InputStream(line))
+        parser = Rfc3164Parser(CommonTokenStream(lexer))
+        listener = Syslog3164Listener(self._builder)
+        parser.removeErrorListeners()
+        parser.addErrorListener(SimpleErrorListener())
+        parser.addParseListener(listener)
+        self._builder.start()
+        if self._specification == SyslogSpecification.RFC_3164:
+            parser.syslog_msg()
+        elif self._specification == SyslogSpecification.RFC_6587_3164:
+            parser.octet_prefixed()
         self._builder.complete()
         return self._builder.produce()
