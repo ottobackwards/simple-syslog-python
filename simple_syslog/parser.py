@@ -179,7 +179,9 @@ class AbstractSyslogParser(SyslogParser[T], ABC):
             raise ValueError("stream cannot ben None")
         line = stream.readline()
         while line:
-            yield self.parse(line)
+            ret = self.parse(line)
+            line = stream.readline()
+            yield ret
 
     def consume_stream(self, stream: TextIOBase, consumer: SyslogConsumer[T]) -> None:
         """Consume a stream of Syslog.
