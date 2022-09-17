@@ -86,7 +86,7 @@ uvloop = ["uvloop (>=0.15.2)"]
 
 [[package]]
 name = "certifi"
-version = "2022.6.15"
+version = "2022.9.14"
 description = "Python package for providing Mozilla's CA Bundle."
 category = "dev"
 optional = false
@@ -214,7 +214,7 @@ tomli = "*"
 
 [[package]]
 name = "flake8-bugbear"
-version = "22.8.23"
+version = "22.9.11"
 description = "A plugin for flake8 finding likely bugs and design problems in your program. Contains warnings that don't belong in pyflakes and pycodestyle."
 category = "main"
 optional = false
@@ -256,7 +256,7 @@ test = ["pytest-cov"]
 
 [[package]]
 name = "idna"
-version = "3.3"
+version = "3.4"
 description = "Internationalized Domain Names in Applications (IDNA)"
 category = "dev"
 optional = false
@@ -733,7 +733,7 @@ python-versions = ">=3.6,<4.0"
 
 [[package]]
 name = "types-flake8-bugbear"
-version = "22.8.23.0"
+version = "22.9.11.0"
 description = "Typing stubs for flake8-bugbear"
 category = "main"
 optional = false
@@ -762,7 +762,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
 name = "virtualenv"
-version = "20.16.4"
+version = "20.16.5"
 description = "Virtual Python Environment builder"
 category = "dev"
 optional = false
@@ -867,8 +867,8 @@ black = [
     {file = "black-22.8.0.tar.gz", hash = "sha256:792f7eb540ba9a17e8656538701d3eb1afcb134e3b45b71f20b25c77a8db7e6e"},
 ]
 certifi = [
-    {file = "certifi-2022.6.15-py3-none-any.whl", hash = "sha256:fe86415d55e84719d75f8b69414f6438ac3547d2078ab91b67e779ef69378412"},
-    {file = "certifi-2022.6.15.tar.gz", hash = "sha256:84c85a9078b11105f04f3036a9482ae10e4621616db313fe045dd24743a0820d"},
+    {file = "certifi-2022.9.14-py3-none-any.whl", hash = "sha256:e232343de1ab72c2aa521b625c80f699e356830fd0e2c620b465b304b17b0516"},
+    {file = "certifi-2022.9.14.tar.gz", hash = "sha256:36973885b9542e6bd01dea287b2b4b3b21236307c56324fcc3f1160f2d655ed5"},
 ]
 charset-normalizer = [
     {file = "charset-normalizer-2.1.1.tar.gz", hash = "sha256:5a3d016c7c547f69d6f81fb0db9449ce888b418b5b9952cc5e6e66843e9dd845"},
@@ -963,8 +963,8 @@ flake8-black = [
     {file = "flake8_black-0.3.3-py3-none-any.whl", hash = "sha256:7d667d0059fd1aa468de1669d77cc934b7f1feeac258d57bdae69a8e73c4cd90"},
 ]
 flake8-bugbear = [
-    {file = "flake8-bugbear-22.8.23.tar.gz", hash = "sha256:de0717d11124a082118dd08387b34fd86b2721642ec2d8e92be66cfa5ea7c445"},
-    {file = "flake8_bugbear-22.8.23-py3-none-any.whl", hash = "sha256:1b0ebe0873d1cd55bf9f1588bfcb930db339018ef44a3981a26532daa9fd14a8"},
+    {file = "flake8-bugbear-22.9.11.tar.gz", hash = "sha256:39236c0e97160d1ab05d9f87422173d16e925a6220b3635bfc4aee766bf8194a"},
+    {file = "flake8_bugbear-22.9.11-py3-none-any.whl", hash = "sha256:e74350a4cfc670e184f3433c223b1e7378f1cf8345ded6c8f12ac1a50c5df22b"},
 ]
 flake8-docstrings = [
     {file = "flake8-docstrings-1.6.0.tar.gz", hash = "sha256:9fe7c6a306064af8e62a055c2f61e9eb1da55f84bb39caef2b84ce53708ac34b"},
@@ -975,8 +975,8 @@ flake8-isort = [
     {file = "flake8_isort-4.2.0-py3-none-any.whl", hash = "sha256:5b87630fb3719bf4c1833fd11e0d9534f43efdeba524863e15d8f14a7ef6adbf"},
 ]
 idna = [
-    {file = "idna-3.3-py3-none-any.whl", hash = "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff"},
-    {file = "idna-3.3.tar.gz", hash = "sha256:9d643ff0a55b762d5cdb124b8eaa99c66322e2157b69160bc32796e824360e6d"},
+    {file = "idna-3.4-py3-none-any.whl", hash = "sha256:90b77e79eaa3eba6de819a0c442c0b4ceefc341a7a2ab77d7562bf49f425c5c2"},
+    {file = "idna-3.4.tar.gz", hash = "sha256:814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"},
 ]
 imagesize = [
     {file = "imagesize-1.4.1-py2.py3-none-any.whl", hash = "sha256:0d8d18d08f840c19d0ee7ca1fd82490fdc3729b7ac93f49870406ddde8ef8d8b"},
@@ -1194,8 +1194,8 @@ tomlkit = [
     {file = "tomlkit-0.11.4.tar.gz", hash = "sha256:3235a9010fae54323e727c3ac06fb720752fe6635b3426e379daec60fbd44a83"},
 ]
 types-flake8-bugbear = [
-    {file = "types-flake8-bugbear-22.8.23.0.tar.gz", hash = "sha256:d5f23ac07d9c4e675df72863b4a9945a1292e6c8bf4bdf5f22b27c4cf6cc8894"},
-    {file = "types_flake8_bugbear-22.8.23.0-py3-none-any.whl", hash = "sha256:32f40d13d471c4553ceb496448218070a9f4275d27f932dca2c10497eb617333"},
+    {file = "types-flake8-bugbear-22.9.11.0.tar.gz", hash = "sha256:a85cc5e721b86b0924b019dc2eafdc749a7208462a72e19b4cdea7a2bdb9e40f"},
+    {file = "types_flake8_bugbear-22.9.11.0-py3-none-any.whl", hash = "sha256:1574bfb74c3b2dcd80334abd0cc09cea65636eb2160504ae0719b364f2632573"},
 ]
 typing-extensions = [
     {file = "typing_extensions-4.3.0-py3-none-any.whl", hash = "sha256:25642c956049920a5aa49edcdd6ab1e06d7e5d467fc00e0506c44ac86fbfca02"},
@@ -1206,8 +1206,8 @@ urllib3 = [
     {file = "urllib3-1.26.12.tar.gz", hash = "sha256:3fa96cf423e6987997fc326ae8df396db2a8b7c667747d47ddd8ecba91f4a74e"},
 ]
 virtualenv = [
-    {file = "virtualenv-20.16.4-py3-none-any.whl", hash = "sha256:035ed57acce4ac35c82c9d8802202b0e71adac011a511ff650cbcf9635006a22"},
-    {file = "virtualenv-20.16.4.tar.gz", hash = "sha256:014f766e4134d0008dcaa1f95bafa0fb0f575795d07cae50b1bee514185d6782"},
+    {file = "virtualenv-20.16.5-py3-none-any.whl", hash = "sha256:d07dfc5df5e4e0dbc92862350ad87a36ed505b978f6c39609dc489eadd5b0d27"},
+    {file = "virtualenv-20.16.5.tar.gz", hash = "sha256:227ea1b9994fdc5ea31977ba3383ef296d7472ea85be9d6732e42a91c04e80da"},
 ]
 xdoctest = [
     {file = "xdoctest-1.1.0-py3-none-any.whl", hash = "sha256:da330c4dacee51f3c785820bc743188fb6f7c64c5fa1c54bff8836b3cf23d69b"},
