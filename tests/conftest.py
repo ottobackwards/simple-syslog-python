@@ -48,6 +48,12 @@ SINGLE_ISE_DEVIATION_PATH = SYSLOG_3164_LOGS_PATH.joinpath("single_ise_deviation
 SINGLE_ISE_OLD_DATE_PATH = SYSLOG_3164_LOGS_PATH.joinpath("single_ise_old_date.txt")
 TWO_ISE_MIX_DATE_PATH = SYSLOG_3164_LOGS_PATH.joinpath("two_ise_mix_date.txt")
 
+# MESSAGES
+OCTET_MESSAGE = (
+    "83 <40>1 2012-11-30T06:45:29+00:00 host app web.3 - -"
+    + " State changed from starting to up"
+)
+
 
 @pytest.fixture
 def file_of_log_txt() -> Path:
@@ -179,3 +185,13 @@ def file_of_3164_two_ise_mix_date() -> Path:
 
     """
     return TWO_ISE_MIX_DATE_PATH
+
+
+@pytest.fixture
+def octet_message() -> str:
+    """Octet message.
+
+    Returns:
+        return octet message
+    """
+    return OCTET_MESSAGE

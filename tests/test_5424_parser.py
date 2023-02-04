@@ -16,7 +16,11 @@ from typing import Generator
 
 from simple_syslog.builder import DefaultBuilder
 from simple_syslog.data import SyslogDataSet
-from simple_syslog.keys import DefaultKeyProvider
+from simple_syslog.keys import (
+    DefaultKeyProvider,
+    SyslogFieldKey,
+    SyslogFieldKeyDefaults,
+)
 from simple_syslog.parser import AbstractSyslogParser, Rfc5424SyslogParser
 from simple_syslog.specification import SyslogSpecification
 
@@ -36,6 +40,38 @@ def test_parse_and_generate(file_of_5424_log_all_txt) -> None:
         for _ in g:
             count = count + 1
     assert count == 1
+
+
+def test_parse_6587_line(octet_message) -> None:
+    """Test parsing RFC_6587 line."""
+    builder = DefaultBuilder(
+        specification=SyslogSpecification.RFC_6587_5424,
+        key_provider=DefaultKeyProvider(),
+        nil_policy=None,
+        allowed_deviations=None,
+    )
+    parser = Rfc5424SyslogParser(builder, SyslogSpecification.RFC_6587_5424)
+    syslog_data: SyslogDataSet = parser.parse(octet_message)
+    assert syslog_data
+    assert "40" == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PRI]]
+    assert (
+        "1" == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_VERSION]]
+    )
+    assert (
+        "5"
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PRI_FACILITY]]
+    )
+    assert (
+        "0"
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PRI_SEVERITY]]
+    )
+    assert (
+        "host"
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_HOSTNAME]]
+    )
+    assert (
+        "app" == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_APPNAME]]
+    )
 
 
 def generate_from_file(
