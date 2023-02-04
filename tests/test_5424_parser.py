@@ -149,7 +149,7 @@ def test_parse_line(syslog_line_all) -> None:
 
     # structured data
     assert "exampleSDID@32473" in syslog_data.structured_data
-    example1 = syslog_data.structured_data.get("exampleSDID@32473")
+    example1 = syslog_data.structured_data.get("exampleSDID@32473", dict())
     assert "iut" in example1
     assert "eventSource" in example1
     assert "eventID" in example1
@@ -158,7 +158,7 @@ def test_parse_line(syslog_line_all) -> None:
     assert expectedEventID1 == example1.get("eventID")
 
     assert "exampleSDID@32480" in syslog_data.structured_data
-    example2 = syslog_data.structured_data.get("exampleSDID@32480")
+    example2 = syslog_data.structured_data.get("exampleSDID@32480", dict())
     assert "iut" in example2
     assert "eventSource" in example2
     assert "eventID" in example2
