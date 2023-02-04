@@ -54,6 +54,46 @@ OCTET_MESSAGE = (
     + " State changed from starting to up"
 )
 
+SYSLOG_LINE_ALL = (
+    "<14>1 2014-06-20T09:14:07+00:00 loggregator"
+    + " d0602076-b14a-4c55-852a-981e7afeed38 DEA MSG-01"
+    + ' [exampleSDID@32473 iut="3" eventSource="Application" eventID="1011"]'
+    + '[exampleSDID@32480 iut="4" eventSource="Other Application" eventID="2022"] "'
+    + "Removing instance"
+)
+SYSLOG_LINE_ESC_QUOTES = (
+    "<14>1 2014-06-20T09:14:07+00:00 loggregator"
+    + " d0602076-b14a-4c55-852a-981e7afeed38 DEA MSG-01"
+    + ' [exampleSDID@32473 iut="3" eventSource="Application" eventID="1011"]'
+    + '[exampleSDID@32480 iut="4" eventSource="Other \\"so called \\" "Application" eventID="2022"]'  # noqa: B950
+    + " Removing instance"
+)
+SYSLOG_LINE_ESC_SLASH = (
+    "<14>1 2014-06-20T09:14:07+00:00 loggregator"
+    + " d0602076-b14a-4c55-852a-981e7afeed38 DEA MSG-01"
+    + ' [exampleSDID@32473 iut="3" eventSource="Application" eventID="1011"]'
+    + '[exampleSDID@32480 iut="4" eventSource="Other \\\\so called \\\\ Application" eventID="2022"]'  # noqa: B950
+    + " Removing instance"
+)
+SYSLOG_LINE_ESC_RIGHT_BRACKET = (
+    "<14>1 2014-06-20T09:14:07+00:00 loggregator"
+    + " d0602076-b14a-4c55-852a-981e7afeed38 DEA MSG-01"
+    + ' [exampleSDID@32473 iut="3" eventSource="Application" eventID="1011"]'
+    + '[exampleSDID@32480 iut="4" eventSource="Other [so called \\] Application" eventID="2022"]'  # noqa: B950
+    + " Removing instance"
+)
+SYSLOG_LINE_NO_MSG = (
+    "<14>1 2014-06-20T09:14:07+00:00 loggregator"
+    + " d0602076-b14a-4c55-852a-981e7afeed38 DEA MSG-01"
+    + ' [exampleSDID@32473 iut="3" eventSource="Application" eventID="1011"]'
+)
+SYSLOG_LINE_NO_MSG2 = (
+    "<14>1 2014-06-20T09:14:07+00:00 loggregator"
+    + " d0602076-b14a-4c55-852a-981e7afeed38 DEA MSG-01"
+    + ' [exampleSDID@32473 iut="3" eventSource="Application" eventID="1011"]'
+    + '[exampleSDID@32480 iut="4" eventSource="Other Application" eventID="2022"]'
+)
+
 
 @pytest.fixture
 def file_of_log_txt() -> Path:
@@ -195,3 +235,63 @@ def octet_message() -> str:
         return octet message
     """
     return OCTET_MESSAGE
+
+
+@pytest.fixture
+def syslog_line_all() -> str:
+    """ALL options message.
+
+    Returns:
+        SYSLOG_LINE_ALL
+    """
+    return SYSLOG_LINE_ALL
+
+
+@pytest.fixture
+def syslog_line_esc_quotes() -> str:
+    """ESC Quotes message.
+
+    Returns:
+        SYSLOG_LINE_ESC_QUOTES
+    """
+    return SYSLOG_LINE_ESC_QUOTES
+
+
+@pytest.fixture
+def syslog_line_esc_slash() -> str:
+    """ESC Slash message.
+
+    Returns:
+        SYSLOG_LINE_ESC_SLASH
+    """
+    return SYSLOG_LINE_ESC_SLASH
+
+
+@pytest.fixture
+def syslog_line_esc_right_bracket() -> str:
+    """ESC Right Bracket message.
+
+    Returns:
+        SYSLOG_LINE_ESC_RIGHT_BRACKET
+    """
+    return SYSLOG_LINE_ESC_RIGHT_BRACKET
+
+
+@pytest.fixture
+def syslog_line_no_msg() -> str:
+    """No MSG message.
+
+    Returns:
+        SYSLOG_LINE_NO_MSG
+    """
+    return SYSLOG_LINE_NO_MSG
+
+
+@pytest.fixture
+def syslog_line_no_msg2() -> str:
+    """No msg 2.
+
+    Returns:
+        SYSLOG_LINE_NO_MSG2
+    """
+    return SYSLOG_LINE_NO_MSG2

@@ -24,6 +24,27 @@ from simple_syslog.keys import (
 from simple_syslog.parser import AbstractSyslogParser, Rfc5424SyslogParser
 from simple_syslog.specification import SyslogSpecification
 
+expectedVersion = "1"
+expectedMessage = "Removing instance"
+expectedAppName = "d0602076-b14a-4c55-852a-981e7afeed38"
+expectedHostName = "loggregator"
+expectedPri = "14"
+expectedFacility = "1"
+expectedSeverity = "6"
+expectedProcId = "DEA"
+expectedTimestamp = "2014-06-20T09:14:07+00:00"
+expectedMessageId = "MSG-01"
+
+expectedIUT1 = "3"
+expectedIUT2 = "4"
+expectedEventSource1 = "Application"
+expectedEventSource2 = "Other Application"
+expectedEventSource2EscapedQuote = 'Other \\"so called \\" Application'
+expectedEventSource2EscapedSlash = "Other \\\\so called \\\\ Application"
+expectedEventSource2EscapedRightBracket = "Other [so called \\] Application"
+expectedEventID1 = "1011"
+expectedEventID2 = "2022"
+
 
 def test_parse_and_generate(file_of_5424_log_all_txt) -> None:
     """Test that we get a 1 line generator."""
@@ -72,6 +93,78 @@ def test_parse_6587_line(octet_message) -> None:
     assert (
         "app" == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_APPNAME]]
     )
+
+
+def test_parse_line(syslog_line_all) -> None:
+    """Test parsing a syslog line with all information."""
+    builder = DefaultBuilder(
+        specification=SyslogSpecification.RFC_5424,
+        key_provider=DefaultKeyProvider(),
+        nil_policy=None,
+        allowed_deviations=None,
+    )
+    parser = Rfc5424SyslogParser(builder)
+    syslog_data: SyslogDataSet = parser.parse(syslog_line_all)
+    assert syslog_data
+    assert (
+        expectedVersion
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_VERSION]]
+    )
+    assert (
+        expectedMessage
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.MESSAGE]]
+    )
+    assert (
+        expectedAppName
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_APPNAME]]
+    )
+    assert (
+        expectedHostName
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_HOSTNAME]]
+    )
+    assert (
+        expectedPri
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PRI]]
+    )
+    assert (
+        expectedSeverity
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PRI_SEVERITY]]
+    )
+    assert (
+        expectedFacility
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PRI_FACILITY]]
+    )
+    assert (
+        expectedProcId
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PROCID]]
+    )
+    assert (
+        expectedTimestamp
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_TIMESTAMP]]
+    )
+    assert (
+        expectedMessageId
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_MSGID]]
+    )
+
+    # structured data
+    assert "exampleSDID@32473" in syslog_data.structured_data
+    example1 = syslog_data.structured_data.get("exampleSDID@32473")
+    assert "iut" in example1
+    assert "eventSource" in example1
+    assert "eventID" in example1
+    assert expectedIUT1 == example1.get("iut")
+    assert expectedEventSource1 == example1.get("eventSource")
+    assert expectedEventID1 == example1.get("eventID")
+
+    assert "exampleSDID@32480" in syslog_data.structured_data
+    example2 = syslog_data.structured_data.get("exampleSDID@32480")
+    assert "iut" in example2
+    assert "eventSource" in example2
+    assert "eventID" in example2
+    assert expectedIUT2 == example2.get("iut")
+    assert expectedEventSource2 == example2.get("eventSource")
+    assert expectedEventID2 == example2.get("eventID")
 
 
 def generate_from_file(
