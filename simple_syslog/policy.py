@@ -29,7 +29,7 @@ class NilPolicy(enum.Enum):
     NULL = 1, "a nil value will result in a null value in the map."
     DASH = 2, "a nil value will result in a '-' symbol in the map."
 
-    def __new__(cls, value, doc=None) -> Self:
+    def __new__(cls, value, doc=None) -> Self:  # type:ignore
         """Create new NilPolicy member.
 
         Args:
@@ -59,7 +59,7 @@ class AllowableDeviation(enum.Enum):
     PRIORITY = 1, "Syslog that does not have PRIORITY"
     VERSION = 2, "RFC 5424 Syslog that does not have VERSION"
 
-    def __new__(cls, value, doc=None) -> Self:
+    def __new__(cls, value, doc=None) -> Self:  # type:ignore
         """Create new NilPolicy member.
 
         Args:

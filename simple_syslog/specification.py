@@ -15,7 +15,7 @@ class SyslogSpecification(enum.Enum):
     RFC_6587_5424 = 3, ""
     HEROKU_HTTPS_LOG_DRAIN = 4, ""
 
-    def __new__(cls, value, doc=None) -> Self:
+    def __new__(cls, value, doc=None) -> Self:  # type:ignore
         """Create new SyslogSpecification member.
 
         Args:
