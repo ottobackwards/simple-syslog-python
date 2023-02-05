@@ -167,6 +167,78 @@ def test_parse_line(syslog_line_all) -> None:
     assert expectedEventID2 == example2.get("eventID")
 
 
+def test_parse_line_escaped_quote(syslog_line_esc_quotes) -> None:
+    """Test parsing a syslog line with escaped quotes."""
+    builder = DefaultBuilder(
+        specification=SyslogSpecification.RFC_5424,
+        key_provider=DefaultKeyProvider(),
+        nil_policy=None,
+        allowed_deviations=None,
+    )
+    parser = Rfc5424SyslogParser(builder)
+    syslog_data: SyslogDataSet = parser.parse(syslog_line_esc_quotes)
+    assert syslog_data
+    assert (
+        expectedVersion
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_VERSION]]
+    )
+    assert (
+        expectedMessage
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.MESSAGE]]
+    )
+    assert (
+        expectedAppName
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_APPNAME]]
+    )
+    assert (
+        expectedHostName
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_HOSTNAME]]
+    )
+    assert (
+        expectedPri
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PRI]]
+    )
+    assert (
+        expectedSeverity
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PRI_SEVERITY]]
+    )
+    assert (
+        expectedFacility
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PRI_FACILITY]]
+    )
+    assert (
+        expectedProcId
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PROCID]]
+    )
+    assert (
+        expectedTimestamp
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_TIMESTAMP]]
+    )
+    assert (
+        expectedMessageId
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_MSGID]]
+    )
+
+    # structured data
+    assert "exampleSDID@32473" in syslog_data.structured_data
+    example1 = syslog_data.structured_data.get("exampleSDID@32473", dict())
+    assert "iut" in example1
+    assert "eventSource" in example1
+    assert "eventID" in example1
+    assert expectedIUT1 == example1.get("iut")
+    assert expectedEventSource1 == example1.get("eventSource")
+    assert expectedEventID1 == example1.get("eventID")
+
+    assert "exampleSDID@32480" in syslog_data.structured_data
+    example2 = syslog_data.structured_data.get("exampleSDID@32480", dict())
+    assert "iut" in example2
+    assert "eventSource" in example2
+    assert "eventID" in example2
+    assert expectedIUT2 == example2.get("iut")
+    assert expectedEventSource2EscapedQuote == example2.get("eventSource")
+    assert expectedEventID2 == example2.get("eventID")
+
+
 def generate_from_file(
     f: TextIOBase, parser: AbstractSyslogParser[SyslogDataSet]
 ) -> Generator[SyslogDataSet, None, None]:
