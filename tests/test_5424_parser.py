@@ -24,26 +24,26 @@ from simple_syslog.keys import (
 from simple_syslog.parser import AbstractSyslogParser, Rfc5424SyslogParser
 from simple_syslog.specification import SyslogSpecification
 
-expectedVersion = "1"
-expectedMessage = "Removing instance"
-expectedAppName = "d0602076-b14a-4c55-852a-981e7afeed38"
-expectedHostName = "loggregator"
-expectedPri = "14"
-expectedFacility = "1"
-expectedSeverity = "6"
-expectedProcId = "DEA"
-expectedTimestamp = "2014-06-20T09:14:07+00:00"
-expectedMessageId = "MSG-01"
+expected_version = "1"
+expected_message = "Removing instance"
+expected_app_name = "d0602076-b14a-4c55-852a-981e7afeed38"
+expected_host_name = "loggregator"
+expected_pri = "14"
+expected_facility = "1"
+expected_severity = "6"
+expected_proc_id = "DEA"
+expected_timestamp = "2014-06-20T09:14:07+00:00"
+expected_message_id = "MSG-01"
 
-expectedIUT1 = "3"
-expectedIUT2 = "4"
-expectedEventSource1 = "Application"
-expectedEventSource2 = "Other Application"
-expectedEventSource2EscapedQuote = 'Other \\"so called \\" Application'
-expectedEventSource2EscapedSlash = "Other \\\\so called \\\\ Application"
-expectedEventSource2EscapedRightBracket = "Other [so called \\] Application"
-expectedEventID1 = "1011"
-expectedEventID2 = "2022"
+expected_iut1 = "3"
+expected_iut2 = "4"
+expected_event_source1 = "Application"
+expected_event_source2 = "Other Application"
+expected_event_source2_escaped_quote = 'Other \\"so called \\" Application'
+expected_event_source2_escaped_slash = "Other \\\\so called \\\\ Application"
+expected_event_source2_escaped_right_bracket = "Other [so called \\] Application"
+expected_event_id1 = "1011"
+expected_event_id2 = "2022"
 
 
 def test_parse_and_generate(file_of_5424_log_all_txt) -> None:
@@ -107,43 +107,43 @@ def test_parse_line(syslog_line_all) -> None:
     syslog_data: SyslogDataSet = parser.parse(syslog_line_all)
     assert syslog_data
     assert (
-        expectedVersion
+        expected_version
         == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_VERSION]]
     )
     assert (
-        expectedMessage
+        expected_message
         == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.MESSAGE]]
     )
     assert (
-        expectedAppName
+        expected_app_name
         == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_APPNAME]]
     )
     assert (
-        expectedHostName
+        expected_host_name
         == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_HOSTNAME]]
     )
     assert (
-        expectedPri
+        expected_pri
         == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PRI]]
     )
     assert (
-        expectedSeverity
+        expected_severity
         == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PRI_SEVERITY]]
     )
     assert (
-        expectedFacility
+        expected_facility
         == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PRI_FACILITY]]
     )
     assert (
-        expectedProcId
+        expected_proc_id
         == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PROCID]]
     )
     assert (
-        expectedTimestamp
+        expected_timestamp
         == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_TIMESTAMP]]
     )
     assert (
-        expectedMessageId
+        expected_message_id
         == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_MSGID]]
     )
 
@@ -153,18 +153,18 @@ def test_parse_line(syslog_line_all) -> None:
     assert "iut" in example1
     assert "eventSource" in example1
     assert "eventID" in example1
-    assert expectedIUT1 == example1.get("iut")
-    assert expectedEventSource1 == example1.get("eventSource")
-    assert expectedEventID1 == example1.get("eventID")
+    assert expected_iut1 == example1.get("iut")
+    assert expected_event_source1 == example1.get("eventSource")
+    assert expected_event_id1 == example1.get("eventID")
 
     assert "exampleSDID@32480" in syslog_data.structured_data
     example2 = syslog_data.structured_data.get("exampleSDID@32480", dict())
     assert "iut" in example2
     assert "eventSource" in example2
     assert "eventID" in example2
-    assert expectedIUT2 == example2.get("iut")
-    assert expectedEventSource2 == example2.get("eventSource")
-    assert expectedEventID2 == example2.get("eventID")
+    assert expected_iut2 == example2.get("iut")
+    assert expected_event_source2 == example2.get("eventSource")
+    assert expected_event_id2 == example2.get("eventID")
 
 
 def test_parse_line_escaped_quote(syslog_line_esc_quotes) -> None:
@@ -179,43 +179,43 @@ def test_parse_line_escaped_quote(syslog_line_esc_quotes) -> None:
     syslog_data: SyslogDataSet = parser.parse(syslog_line_esc_quotes)
     assert syslog_data
     assert (
-        expectedVersion
+        expected_version
         == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_VERSION]]
     )
     assert (
-        expectedMessage
+        expected_message
         == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.MESSAGE]]
     )
     assert (
-        expectedAppName
+        expected_app_name
         == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_APPNAME]]
     )
     assert (
-        expectedHostName
+        expected_host_name
         == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_HOSTNAME]]
     )
     assert (
-        expectedPri
+        expected_pri
         == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PRI]]
     )
     assert (
-        expectedSeverity
+        expected_severity
         == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PRI_SEVERITY]]
     )
     assert (
-        expectedFacility
+        expected_facility
         == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PRI_FACILITY]]
     )
     assert (
-        expectedProcId
+        expected_proc_id
         == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PROCID]]
     )
     assert (
-        expectedTimestamp
+        expected_timestamp
         == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_TIMESTAMP]]
     )
     assert (
-        expectedMessageId
+        expected_message_id
         == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_MSGID]]
     )
 
@@ -225,18 +225,18 @@ def test_parse_line_escaped_quote(syslog_line_esc_quotes) -> None:
     assert "iut" in example1
     assert "eventSource" in example1
     assert "eventID" in example1
-    assert expectedIUT1 == example1.get("iut")
-    assert expectedEventSource1 == example1.get("eventSource")
-    assert expectedEventID1 == example1.get("eventID")
+    assert expected_iut1 == example1.get("iut")
+    assert expected_event_source1 == example1.get("eventSource")
+    assert expected_event_id1 == example1.get("eventID")
 
     assert "exampleSDID@32480" in syslog_data.structured_data
     example2 = syslog_data.structured_data.get("exampleSDID@32480", dict())
     assert "iut" in example2
     assert "eventSource" in example2
     assert "eventID" in example2
-    assert expectedIUT2 == example2.get("iut")
-    assert expectedEventSource2EscapedQuote == example2.get("eventSource")
-    assert expectedEventID2 == example2.get("eventID")
+    assert expected_iut2 == example2.get("iut")
+    assert expected_event_source2_escaped_quote == example2.get("eventSource")
+    assert expected_event_id2 == example2.get("eventID")
 
 
 def generate_from_file(
