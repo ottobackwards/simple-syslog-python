@@ -240,7 +240,7 @@ def test_parse_line_escaped_quote(syslog_line_esc_quotes) -> None:
 
 
 def test_parse_line_escaped_slash(syslog_line_esc_slash) -> None:
-    """Test parsing a syslog line with escaped quotes."""
+    """Test parsing a syslog line with escaped slashes."""
     builder = DefaultBuilder(
         specification=SyslogSpecification.RFC_5424,
         key_provider=DefaultKeyProvider(),
@@ -308,6 +308,78 @@ def test_parse_line_escaped_slash(syslog_line_esc_slash) -> None:
     assert "eventID" in example2
     assert expected_iut2 == example2.get("iut")
     assert expected_event_source2_escaped_slash == example2.get("eventSource")
+    assert expected_event_id2 == example2.get("eventID")
+
+
+def test_parse_line_escaped_right_bracket(syslog_line_esc_right_bracket) -> None:
+    """Test parsing a syslog line with escaped quotes."""
+    builder = DefaultBuilder(
+        specification=SyslogSpecification.RFC_5424,
+        key_provider=DefaultKeyProvider(),
+        nil_policy=None,
+        allowed_deviations=None,
+    )
+    parser = Rfc5424SyslogParser(builder)
+    syslog_data: SyslogDataSet = parser.parse(syslog_line_esc_right_bracket)
+    assert syslog_data
+    assert (
+        expected_version
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_VERSION]]
+    )
+    assert (
+        expected_message
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.MESSAGE]]
+    )
+    assert (
+        expected_app_name
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_APPNAME]]
+    )
+    assert (
+        expected_host_name
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_HOSTNAME]]
+    )
+    assert (
+        expected_pri
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PRI]]
+    )
+    assert (
+        expected_severity
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PRI_SEVERITY]]
+    )
+    assert (
+        expected_facility
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PRI_FACILITY]]
+    )
+    assert (
+        expected_proc_id
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PROCID]]
+    )
+    assert (
+        expected_timestamp
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_TIMESTAMP]]
+    )
+    assert (
+        expected_message_id
+        == syslog_data.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_MSGID]]
+    )
+
+    # structured data
+    assert "exampleSDID@32473" in syslog_data.structured_data
+    example1 = syslog_data.structured_data.get("exampleSDID@32473", dict())
+    assert "iut" in example1
+    assert "eventSource" in example1
+    assert "eventID" in example1
+    assert expected_iut1 == example1.get("iut")
+    assert expected_event_source1 == example1.get("eventSource")
+    assert expected_event_id1 == example1.get("eventID")
+
+    assert "exampleSDID@32480" in syslog_data.structured_data
+    example2 = syslog_data.structured_data.get("exampleSDID@32480", dict())
+    assert "iut" in example2
+    assert "eventSource" in example2
+    assert "eventID" in example2
+    assert expected_iut2 == example2.get("iut")
+    assert expected_event_source2_escaped_right_bracket == example2.get("eventSource")
     assert expected_event_id2 == example2.get("eventID")
 
 
