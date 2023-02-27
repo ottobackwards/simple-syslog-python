@@ -146,11 +146,11 @@ class DefaultBuilder(Builder[SyslogDataSet]):
             self._nil_policy = nil_policy
 
         if not allowed_deviations:
-            self._allowable_deviations = list()
+            self._allowable_deviations = []
         else:
             self._allowable_deviations = allowed_deviations
 
-        self._data: SyslogDataSet = SyslogDataSet(dict(), dict())
+        self._data: SyslogDataSet = SyslogDataSet({}, {})
 
     def consume_value(self, field_key: SyslogFieldKey, value: str) -> None:
         """Consume the value of a SyslogFieldKey.
@@ -177,7 +177,7 @@ class DefaultBuilder(Builder[SyslogDataSet]):
 
         """
         if identifier not in self._data.structured_data:
-            self._data.structured_data[identifier] = dict()
+            self._data.structured_data[identifier] = {}
         # add the dict for identifier
         self._data.structured_data[identifier] = raw_parameters
 

@@ -52,6 +52,7 @@ def lint(this_session: Session):
         "flake8-bugbear",
         "flake8-docstrings",
         "flake8-isort",
+        "flake8-comprehensions",
     )
     this_session.run("flake8", *args)
 

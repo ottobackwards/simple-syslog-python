@@ -248,7 +248,7 @@ def handle_5424_file(
     if not nil_policy:
         nil_policy = NilPolicy.OMIT
     if not deviations:
-        deviations = list()
+        deviations = []
     builder = DefaultBuilder(
         key_provider=key_provider, nil_policy=nil_policy, allowed_deviations=deviations
     )

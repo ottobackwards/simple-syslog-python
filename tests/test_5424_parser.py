@@ -149,7 +149,7 @@ def test_parse_line(syslog_line_all) -> None:
 
     # structured data
     assert "exampleSDID@32473" in syslog_data.structured_data
-    example1 = syslog_data.structured_data.get("exampleSDID@32473", dict())
+    example1 = syslog_data.structured_data.get("exampleSDID@32473", {})
     assert "iut" in example1
     assert "eventSource" in example1
     assert "eventID" in example1
@@ -158,7 +158,7 @@ def test_parse_line(syslog_line_all) -> None:
     assert expected_event_id1 == example1.get("eventID")
 
     assert "exampleSDID@32480" in syslog_data.structured_data
-    example2 = syslog_data.structured_data.get("exampleSDID@32480", dict())
+    example2 = syslog_data.structured_data.get("exampleSDID@32480", {})
     assert "iut" in example2
     assert "eventSource" in example2
     assert "eventID" in example2
@@ -221,7 +221,7 @@ def test_parse_line_escaped_quote(syslog_line_esc_quotes) -> None:
 
     # structured data
     assert "exampleSDID@32473" in syslog_data.structured_data
-    example1 = syslog_data.structured_data.get("exampleSDID@32473", dict())
+    example1 = syslog_data.structured_data.get("exampleSDID@32473", {})
     assert "iut" in example1
     assert "eventSource" in example1
     assert "eventID" in example1
@@ -230,7 +230,7 @@ def test_parse_line_escaped_quote(syslog_line_esc_quotes) -> None:
     assert expected_event_id1 == example1.get("eventID")
 
     assert "exampleSDID@32480" in syslog_data.structured_data
-    example2 = syslog_data.structured_data.get("exampleSDID@32480", dict())
+    example2 = syslog_data.structured_data.get("exampleSDID@32480", {})
     assert "iut" in example2
     assert "eventSource" in example2
     assert "eventID" in example2
@@ -293,7 +293,7 @@ def test_parse_line_escaped_slash(syslog_line_esc_slash) -> None:
 
     # structured data
     assert "exampleSDID@32473" in syslog_data.structured_data
-    example1 = syslog_data.structured_data.get("exampleSDID@32473", dict())
+    example1 = syslog_data.structured_data.get("exampleSDID@32473", {})
     assert "iut" in example1
     assert "eventSource" in example1
     assert "eventID" in example1
@@ -302,7 +302,7 @@ def test_parse_line_escaped_slash(syslog_line_esc_slash) -> None:
     assert expected_event_id1 == example1.get("eventID")
 
     assert "exampleSDID@32480" in syslog_data.structured_data
-    example2 = syslog_data.structured_data.get("exampleSDID@32480", dict())
+    example2 = syslog_data.structured_data.get("exampleSDID@32480", {})
     assert "iut" in example2
     assert "eventSource" in example2
     assert "eventID" in example2
@@ -312,7 +312,7 @@ def test_parse_line_escaped_slash(syslog_line_esc_slash) -> None:
 
 
 def test_parse_line_escaped_right_bracket(syslog_line_esc_right_bracket) -> None:
-    """Test parsing a syslog line with escaped quotes."""
+    """Test parsing a syslog line with escaped right bracket."""
     builder = DefaultBuilder(
         specification=SyslogSpecification.RFC_5424,
         key_provider=DefaultKeyProvider(),
@@ -365,7 +365,7 @@ def test_parse_line_escaped_right_bracket(syslog_line_esc_right_bracket) -> None
 
     # structured data
     assert "exampleSDID@32473" in syslog_data.structured_data
-    example1 = syslog_data.structured_data.get("exampleSDID@32473", dict())
+    example1 = syslog_data.structured_data.get("exampleSDID@32473", {})
     assert "iut" in example1
     assert "eventSource" in example1
     assert "eventID" in example1
@@ -374,7 +374,7 @@ def test_parse_line_escaped_right_bracket(syslog_line_esc_right_bracket) -> None
     assert expected_event_id1 == example1.get("eventID")
 
     assert "exampleSDID@32480" in syslog_data.structured_data
-    example2 = syslog_data.structured_data.get("exampleSDID@32480", dict())
+    example2 = syslog_data.structured_data.get("exampleSDID@32480", {})
     assert "iut" in example2
     assert "eventSource" in example2
     assert "eventID" in example2

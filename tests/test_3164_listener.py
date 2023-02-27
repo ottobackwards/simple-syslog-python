@@ -193,7 +193,7 @@ def handle_3164_file(
     if not nil_policy:
         nil_policy = NilPolicy.OMIT
     if not deviations:
-        deviations = list()
+        deviations = []
     if not specification:
         specification = SyslogSpecification.RFC_3164
     builder = DefaultBuilder(
