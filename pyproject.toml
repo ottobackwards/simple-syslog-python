@@ -26,6 +26,9 @@ keywords = ["syslog", "RFC 5424", "RFC 3164", "simple-syslog"]
 [tool.poetry.urls]
 issues = "https://github.com/palindromicity/simple-syslog-python/issues"
 
+[tool.poetry.group.dev.dependencies]
+nox-poetry = "^1.0.2"
+
 [tool.coverage.paths]
 source = ["simple_syslog", "*/site-packages"]
 

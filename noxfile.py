@@ -1,4 +1,4 @@
-# Copyright 2022 simple-syslog authors
+# Copyright 2022-2023 simple-syslog authors
 # All rights reserved.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ locations = "simple_syslog", "tests", "noxfile.py", "docs/conf.py"
 package = "simple_syslog"
 
 
-@session(python=["3.8", "3.9", "3.10", "3.11"])
+@session(python=["3.9", "3.10", "3.11"])
 def tests(this_session: Session) -> None:
     """Run the test suite."""
     args = this_session.posargs or ["--cov"]
@@ -40,7 +40,7 @@ def tests(this_session: Session) -> None:
     this_session.run("pytest", *args, external=True)
 
 
-@session(python=["3.8", "3.9", "3.10", "3.11"])
+@session(python=["3.9", "3.10", "3.11"])
 def lint(this_session: Session):
     """Lint using Flake8."""
     args = this_session.posargs or locations
@@ -57,7 +57,7 @@ def lint(this_session: Session):
     this_session.run("flake8", *args)
 
 
-@session(python=["3.8", "3.9", "3.10", "3.11"])
+@session(python=["3.9", "3.10", "3.11"])
 def black(this_session: Session):
     """Format using Black."""
     args = this_session.posargs or locations
@@ -65,7 +65,7 @@ def black(this_session: Session):
     this_session.run("black", *args)
 
 
-@session(python=["3.8", "3.9", "3.10", "3.11"])
+@session(python=["3.9", "3.10", "3.11"])
 def mypy(this_session: Session):
     """Type Checking with mypy."""
     args = this_session.posargs or locations
@@ -74,7 +74,7 @@ def mypy(this_session: Session):
     this_session.run("mypy", *args)
 
 
-@session(python=["3.8", "3.9", "3.10", "3.11"])
+@session(python=["3.9", "3.10", "3.11"])
 def xdoctest(this_session: Session) -> None:
     """Run examples with xdoctest."""
     args = this_session.posargs or ["all"]
@@ -83,7 +83,7 @@ def xdoctest(this_session: Session) -> None:
     this_session.run("python", "-m", "xdoctest", package, *args)
 
 
-@session(python=["3.8"])
+@session(python=["3.9"])
 def docs(this_session: Session) -> None:
     """Build the documentation."""
     this_session.install("sphinx", ".")
