@@ -24,3 +24,5 @@ nox
 nox-poetry
 
 generate.sh.local
+
+other things
