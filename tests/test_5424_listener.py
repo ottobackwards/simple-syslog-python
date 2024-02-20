@@ -100,17 +100,19 @@ def test_all_present(file_of_5424_log_all_txt):
     )
 
     #  structured data
-    assert "exampleSDID@32473" in syslog_data.structured_data
+    assert "exampleSDID@32473" in syslog_data.structured_data.keys()
     example_dict = syslog_data.structured_data.get("exampleSDID@32473")
-    assert "iut" in example_dict
-    assert "eventSource" in example_dict
-    assert "eventID" in example_dict
+    assert example_dict
+    assert "iut" in example_dict.keys()
+    assert "eventSource" in example_dict.keys()
+    assert "eventID" in example_dict.keys()
     assert expectedIUT1 == example_dict.get("iut")
     assert expectedEventSource1 == example_dict.get("eventSource")
     assert expectedEventID1 == example_dict.get("eventID")
 
-    assert "exampleSDID@32480" in syslog_data.structured_data
+    assert "exampleSDID@32480" in syslog_data.structured_data.keys()
     example_dict = syslog_data.structured_data.get("exampleSDID@32480")
+    assert example_dict
     assert "iut" in example_dict
     assert "eventSource" in example_dict
     assert "eventID" in example_dict
