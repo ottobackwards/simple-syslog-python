@@ -53,7 +53,7 @@ class SimpleErrorListener(ErrorListener):
 
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
         """Handle Syntax Errors."""
-        raise ParseError(f"Syntax error @ {line}:{column}  {msg}", e)
+        raise ParseError(f"Syntax error @ {line}: {column}  {msg}", e)
 
     def reportAmbiguity(
         self, recognizer, dfa, startIndex, stopIndex, exact, ambigAlts, configs

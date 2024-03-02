@@ -65,7 +65,7 @@ ignore_missing_imports = true
 ignore_errors = true
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.10"
 antlr4-python3-runtime = "^4.10"
 black = "^22.6.0"
 flake8 = "^5.0.4"
@@ -88,7 +88,7 @@ flake8-docstrings = "^1.6.0"
 black = "^22.6.0"
 darglint = "^1.8.1"
 xdoctest = "^1.0.2"
-nox = "^2022.8.7"
+nox = "^2023.4.22"
 nox-poetry = "^1.0.3"
 Sphinx = "^5.1.1"
 sphinx-autodoc-typehints = "^1.19.2"
