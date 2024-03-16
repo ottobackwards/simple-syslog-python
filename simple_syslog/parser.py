@@ -154,8 +154,6 @@ class AbstractSyslogParser(SyslogParser[T], ABC):
             ValueError: if line or consumer are None
 
         """
-        if not consumer:
-            raise ValueError("consumer cannot be None")
         consumer(self.parse(line))
 
     def generate(self, stream: TextIOBase) -> Generator[T, None, None]:
@@ -196,10 +194,6 @@ class AbstractSyslogParser(SyslogParser[T], ABC):
             ValueError: if stream or consumer are None
 
         """
-        if not stream:
-            raise ValueError("stream cannot ben None")
-        if not consumer:
-            raise ValueError("consumer cannot ben None")
         line = stream.readline()
         while line:
             self.consume(line, consumer)
@@ -216,14 +210,7 @@ class AbstractSyslogParser(SyslogParser[T], ABC):
             stream: A stream where each line is a line of Syslog
             consumer: Called with T
             error_consumer: Called with any ParseError or DeviationError
-
-        Raises:
-            ValueError: if stream, consumer, or error_consumer are None
         """
-        if not stream:
-            raise ValueError("stream cannot ben None")
-        if not consumer:
-            raise ValueError("consumer cannot ben None")
         line = stream.readline()
         while line:
             try:

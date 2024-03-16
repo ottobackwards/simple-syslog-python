@@ -3,6 +3,8 @@
 from antlr4 import *
 from io import StringIO
 import sys
+from typing import Optional
+
 if sys.version_info[1] > 5:
 	from typing import TextIO
 else:
@@ -593,7 +595,7 @@ class Rfc5424Parser ( Parser ):
     class Heroku_https_log_drainContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -616,7 +618,7 @@ class Rfc5424Parser ( Parser ):
         def octet_prefix(self):
             return self.getTypedRuleContext(Rfc5424Parser.Octet_prefixContext,0)
 
-        def sp(self, i:int=None):
+        def sp(self, i: Optional[int]=None):
             if i is None:
                 return self.getTypedRuleContexts(Rfc5424Parser.SpContext)
             else:
@@ -680,7 +682,7 @@ class Rfc5424Parser ( Parser ):
     class Octet_prefixedContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -734,7 +736,7 @@ class Rfc5424Parser ( Parser ):
     class Syslog_msgContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -757,7 +759,7 @@ class Rfc5424Parser ( Parser ):
         def header(self):
             return self.getTypedRuleContext(Rfc5424Parser.HeaderContext,0)
 
-        def sp(self, i:int=None):
+        def sp(self, i: Optional[int]=None):
             if i is None:
                 return self.getTypedRuleContexts(Rfc5424Parser.SpContext)
             else:
@@ -832,7 +834,7 @@ class Rfc5424Parser ( Parser ):
     class Octet_prefixContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -840,7 +842,7 @@ class Rfc5424Parser ( Parser ):
             return self.getTypedRuleContext(Rfc5424Parser.Nonzero_digitContext,0)
 
 
-        def digit(self, i:int=None):
+        def digit(self, i: Optional[int]=None):
             if i is None:
                 return self.getTypedRuleContexts(Rfc5424Parser.DigitContext)
             else:
@@ -892,7 +894,7 @@ class Rfc5424Parser ( Parser ):
     class HeaderContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -915,7 +917,7 @@ class Rfc5424Parser ( Parser ):
         def timestamp(self):
             return self.getTypedRuleContext(Rfc5424Parser.TimestampContext,0)
 
-        def sp(self, i:int=None):
+        def sp(self, i: Optional[int]=None):
             if i is None:
                 return self.getTypedRuleContexts(Rfc5424Parser.SpContext)
             else:
@@ -1012,7 +1014,7 @@ class Rfc5424Parser ( Parser ):
     class PriContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1075,7 +1077,7 @@ class Rfc5424Parser ( Parser ):
     class PrivalContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1095,7 +1097,7 @@ class Rfc5424Parser ( Parser ):
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def digit(self, i:int=None):
+        def digit(self, i: Optional[int]=None):
             if i is None:
                 return self.getTypedRuleContexts(Rfc5424Parser.DigitContext)
             else:
@@ -1156,7 +1158,7 @@ class Rfc5424Parser ( Parser ):
     class VersionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1179,7 +1181,7 @@ class Rfc5424Parser ( Parser ):
         def nonzero_digit(self):
             return self.getTypedRuleContext(Rfc5424Parser.Nonzero_digitContext,0)
 
-        def digit(self, i:int=None):
+        def digit(self, i: Optional[int]=None):
             if i is None:
                 return self.getTypedRuleContexts(Rfc5424Parser.DigitContext)
             else:
@@ -1239,7 +1241,7 @@ class Rfc5424Parser ( Parser ):
     class HostnameContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1259,7 +1261,7 @@ class Rfc5424Parser ( Parser ):
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def printusascii(self, i:int=None):
+        def printusascii(self, i: Optional[int]=None):
             if i is None:
                 return self.getTypedRuleContexts(Rfc5424Parser.PrintusasciiContext)
             else:
@@ -1339,7 +1341,7 @@ class Rfc5424Parser ( Parser ):
     class App_nameContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1378,7 +1380,7 @@ class Rfc5424Parser ( Parser ):
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def printusascii(self, i:int=None):
+        def printusascii(self, i: Optional[int]=None):
             if i is None:
                 return self.getTypedRuleContexts(Rfc5424Parser.PrintusasciiContext)
             else:
@@ -1439,7 +1441,7 @@ class Rfc5424Parser ( Parser ):
     class ProcidContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1478,7 +1480,7 @@ class Rfc5424Parser ( Parser ):
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def printusascii(self, i:int=None):
+        def printusascii(self, i: Optional[int]=None):
             if i is None:
                 return self.getTypedRuleContexts(Rfc5424Parser.PrintusasciiContext)
             else:
@@ -1539,7 +1541,7 @@ class Rfc5424Parser ( Parser ):
     class MsgidContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1578,7 +1580,7 @@ class Rfc5424Parser ( Parser ):
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def printusascii(self, i:int=None):
+        def printusascii(self, i: Optional[int]=None):
             if i is None:
                 return self.getTypedRuleContexts(Rfc5424Parser.PrintusasciiContext)
             else:
@@ -1639,7 +1641,7 @@ class Rfc5424Parser ( Parser ):
     class TimestampContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1736,7 +1738,7 @@ class Rfc5424Parser ( Parser ):
     class Full_dateContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1744,7 +1746,7 @@ class Rfc5424Parser ( Parser ):
             return self.getTypedRuleContext(Rfc5424Parser.Date_fullyearContext,0)
 
 
-        def DASH(self, i:int=None):
+        def DASH(self, i: Optional[int]=None):
             if i is None:
                 return self.getTokens(Rfc5424Parser.DASH)
             else:
@@ -1800,11 +1802,11 @@ class Rfc5424Parser ( Parser ):
     class Date_fullyearContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def digit(self, i:int=None):
+        def digit(self, i: Optional[int]=None):
             if i is None:
                 return self.getTypedRuleContexts(Rfc5424Parser.DigitContext)
             else:
@@ -1851,11 +1853,11 @@ class Rfc5424Parser ( Parser ):
     class Date_monthContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def digit(self, i:int=None):
+        def digit(self, i: Optional[int]=None):
             if i is None:
                 return self.getTypedRuleContexts(Rfc5424Parser.DigitContext)
             else:
@@ -1898,11 +1900,11 @@ class Rfc5424Parser ( Parser ):
     class Date_mdayContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def digit(self, i:int=None):
+        def digit(self, i: Optional[int]=None):
             if i is None:
                 return self.getTypedRuleContexts(Rfc5424Parser.DigitContext)
             else:
@@ -1945,7 +1947,7 @@ class Rfc5424Parser ( Parser ):
     class Full_timeContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1993,7 +1995,7 @@ class Rfc5424Parser ( Parser ):
     class Partial_timeContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2001,7 +2003,7 @@ class Rfc5424Parser ( Parser ):
             return self.getTypedRuleContext(Rfc5424Parser.Time_hourContext,0)
 
 
-        def COLON(self, i:int=None):
+        def COLON(self, i: Optional[int]=None):
             if i is None:
                 return self.getTokens(Rfc5424Parser.COLON)
             else:
@@ -2070,11 +2072,11 @@ class Rfc5424Parser ( Parser ):
     class Time_hourContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def digit(self, i:int=None):
+        def digit(self, i: Optional[int]=None):
             if i is None:
                 return self.getTypedRuleContexts(Rfc5424Parser.DigitContext)
             else:
@@ -2117,11 +2119,11 @@ class Rfc5424Parser ( Parser ):
     class Time_minuteContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def digit(self, i:int=None):
+        def digit(self, i: Optional[int]=None):
             if i is None:
                 return self.getTypedRuleContexts(Rfc5424Parser.DigitContext)
             else:
@@ -2164,11 +2166,11 @@ class Rfc5424Parser ( Parser ):
     class Time_secondContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def digit(self, i:int=None):
+        def digit(self, i: Optional[int]=None):
             if i is None:
                 return self.getTypedRuleContexts(Rfc5424Parser.DigitContext)
             else:
@@ -2211,14 +2213,14 @@ class Rfc5424Parser ( Parser ):
     class Time_secfracContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def PERIOD(self):
             return self.getToken(Rfc5424Parser.PERIOD, 0)
 
-        def digit(self, i:int=None):
+        def digit(self, i: Optional[int]=None):
             if i is None:
                 return self.getTypedRuleContexts(Rfc5424Parser.DigitContext)
             else:
@@ -2317,7 +2319,7 @@ class Rfc5424Parser ( Parser ):
     class Time_offsetContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2375,7 +2377,7 @@ class Rfc5424Parser ( Parser ):
     class Time_numoffsetContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2442,7 +2444,7 @@ class Rfc5424Parser ( Parser ):
     class Structured_dataContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2450,20 +2452,20 @@ class Rfc5424Parser ( Parser ):
             return self.getTypedRuleContext(Rfc5424Parser.NilvalueContext,0)
 
 
-        def LEFT_BRACE(self, i:int=None):
+        def LEFT_BRACE(self, i: Optional[int]=None):
             if i is None:
                 return self.getTokens(Rfc5424Parser.LEFT_BRACE)
             else:
                 return self.getToken(Rfc5424Parser.LEFT_BRACE, i)
 
-        def sd_element(self, i:int=None):
+        def sd_element(self, i: Optional[int]=None):
             if i is None:
                 return self.getTypedRuleContexts(Rfc5424Parser.Sd_elementContext)
             else:
                 return self.getTypedRuleContext(Rfc5424Parser.Sd_elementContext,i)
 
 
-        def RIGHT_BRACE(self, i:int=None):
+        def RIGHT_BRACE(self, i: Optional[int]=None):
             if i is None:
                 return self.getTokens(Rfc5424Parser.RIGHT_BRACE)
             else:
@@ -2535,7 +2537,7 @@ class Rfc5424Parser ( Parser ):
     class Sd_elementContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2558,13 +2560,13 @@ class Rfc5424Parser ( Parser ):
         def sd_id(self):
             return self.getTypedRuleContext(Rfc5424Parser.Sd_idContext,0)
 
-        def sp(self, i:int=None):
+        def sp(self, i: Optional[int]=None):
             if i is None:
                 return self.getTypedRuleContexts(Rfc5424Parser.SpContext)
             else:
                 return self.getTypedRuleContext(Rfc5424Parser.SpContext,i)
 
-        def sd_param(self, i:int=None):
+        def sd_param(self, i: Optional[int]=None):
             if i is None:
                 return self.getTypedRuleContexts(Rfc5424Parser.Sd_paramContext)
             else:
@@ -2615,7 +2617,7 @@ class Rfc5424Parser ( Parser ):
     class Sd_paramContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2640,7 +2642,7 @@ class Rfc5424Parser ( Parser ):
 
         def EQUALS(self):
             return self.getToken(Rfc5424Parser.EQUALS, 0)
-        def QUOTE(self, i:int=None):
+        def QUOTE(self, i: Optional[int]=None):
             if i is None:
                 return self.getTokens(Rfc5424Parser.QUOTE)
             else:
@@ -2688,7 +2690,7 @@ class Rfc5424Parser ( Parser ):
     class Sd_idContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2730,7 +2732,7 @@ class Rfc5424Parser ( Parser ):
     class Param_nameContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2785,7 +2787,7 @@ class Rfc5424Parser ( Parser ):
     class Param_valueContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2805,17 +2807,17 @@ class Rfc5424Parser ( Parser ):
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def BACKSLASH(self, i:int=None):
+        def BACKSLASH(self, i: Optional[int]=None):
             if i is None:
                 return self.getTokens(Rfc5424Parser.BACKSLASH)
             else:
                 return self.getToken(Rfc5424Parser.BACKSLASH, i)
-        def QUOTE(self, i:int=None):
+        def QUOTE(self, i: Optional[int]=None):
             if i is None:
                 return self.getTokens(Rfc5424Parser.QUOTE)
             else:
                 return self.getToken(Rfc5424Parser.QUOTE, i)
-        def RIGHT_BRACE(self, i:int=None):
+        def RIGHT_BRACE(self, i: Optional[int]=None):
             if i is None:
                 return self.getTokens(Rfc5424Parser.RIGHT_BRACE)
             else:
@@ -2885,11 +2887,11 @@ class Rfc5424Parser ( Parser ):
     class Sd_nameContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def printusasciinospecials(self, i:int=None):
+        def printusasciinospecials(self, i: Optional[int]=None):
             if i is None:
                 return self.getTypedRuleContexts(Rfc5424Parser.PrintusasciinospecialsContext)
             else:
@@ -2939,7 +2941,7 @@ class Rfc5424Parser ( Parser ):
     class MsgContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2994,7 +2996,7 @@ class Rfc5424Parser ( Parser ):
     class Msg_utf8Context(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -3036,7 +3038,7 @@ class Rfc5424Parser ( Parser ):
     class BomContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -3103,11 +3105,11 @@ class Rfc5424Parser ( Parser ):
     class Utf_8_stringContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def octet(self, i:int=None):
+        def octet(self, i: Optional[int]=None):
             if i is None:
                 return self.getTypedRuleContexts(Rfc5424Parser.OctetContext)
             else:
@@ -3157,7 +3159,7 @@ class Rfc5424Parser ( Parser ):
     class OctetContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -3969,7 +3971,7 @@ class Rfc5424Parser ( Parser ):
     class SpContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -4010,7 +4012,7 @@ class Rfc5424Parser ( Parser ):
     class PrintusasciiContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -4336,7 +4338,7 @@ class Rfc5424Parser ( Parser ):
     class PrintusasciinospecialsContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -4653,7 +4655,7 @@ class Rfc5424Parser ( Parser ):
     class Nonzero_digitContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -4724,7 +4726,7 @@ class Rfc5424Parser ( Parser ):
     class DigitContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -4811,7 +4813,7 @@ class Rfc5424Parser ( Parser ):
     class NilvalueContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: Optional[ParserRuleContext]=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 

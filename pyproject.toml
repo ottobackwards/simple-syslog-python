@@ -83,7 +83,7 @@ pytest = "^7.1.2"
 coverage = {extras = ["toml"], version = "^6.4.4"}
 pytest-cov = "^3.0.0"
 pytest-mock = "^3.8.2"
-mypy = "^0.971"
+mypy = "^1.9.0"
 flake8-docstrings = "^1.6.0"
 black = "^22.6.0"
 darglint = "^1.8.1"

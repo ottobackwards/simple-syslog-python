@@ -184,7 +184,7 @@ def handle_3164_file(
     file_name: Path,
     nil_policy: Optional[NilPolicy] = None,
     deviations: Optional[List[AllowableDeviation]] = None,
-    specification: SyslogSpecification = None,
+    specification: Optional[SyslogSpecification] = None,
 ):
     """Utility function to parse a file."""
     lexer = Rfc3164Lexer(FileStream(file_name.as_posix()))
