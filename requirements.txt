@@ -32,9 +32,9 @@ flake8-black==0.3.6 ; python_version >= "3.10" and python_version < "4.0" \
 flake8-bugbear==22.12.6 ; python_version >= "3.10" and python_version < "4.0" \
     --hash=sha256:4cdb2c06e229971104443ae293e75e64c6107798229202fbe4f4091427a30ac0 \
     --hash=sha256:b69a510634f8a9c298dfda2b18a8036455e6b19ecac4fe582e4d7a0abfa50a30
-flake8-comprehensions==3.14.0 ; python_version >= "3.10" and python_version < "4.0" \
-    --hash=sha256:7b9d07d94aa88e62099a6d1931ddf16c344d4157deedf90fe0d8ee2846f30e97 \
-    --hash=sha256:81768c61bfc064e1a06222df08a2580d97de10cb388694becaf987c331c6c0cf
+flake8-comprehensions==3.15.0 ; python_version >= "3.10" and python_version < "4.0" \
+    --hash=sha256:923c22603e0310376a6b55b03efebdc09753c69f2d977755cba8bb73458a5d4d \
+    --hash=sha256:b7e027bbb52be2ceb779ee12484cdeef52b0ad3c1fcb8846292bdb86d3034681
 flake8-isort==4.2.0 ; python_version >= "3.10" and python_version < "4.0" \
     --hash=sha256:26571500cd54976bbc0cf1006ffbcd1a68dd102f816b7a1051b219616ba9fee0 \
     --hash=sha256:5b87630fb3719bf4c1833fd11e0d9534f43efdeba524863e15d8f14a7ef6adbf
