@@ -54,6 +54,20 @@ OCTET_MESSAGE = (
     + " State changed from starting to up"
 )
 
+OCTET_MESSAGE_3164 = (
+    "83 <181>Aug  6 17:26:31 10.34.84.145 Aug  7 00:45:43 stage-pdp01"
+    + " CISE_Profiler 0000024855 1 0 2014-08-07 00:45:43.741 -07:00 0000288542 80002 INFO  Profiler: Profiler"
+    + " EndPoint profiling event occurred, ConfigVersionId=113, EndpointCertainityMetric=10,"
+    + " EndpointIPAddress=10.56.111.14, EndpointMacAddress=3C:97:0E:C3:F8:F1, EndpointMatchedPolicy=Nortel-Device,"
+    + " EndpointNADAddress=10.56.72.127, EndpointOUI=Wistron InfoComm(Kunshan)Co.\\,Ltd.,"
+    + " EndpointPolicy=Nortel-Device, EndpointProperty=StaticAssignment=false\\,PostureApplicable=Yes\\,"
+    + "PolicyVersion=402\\,IdentityGroupID=0c1d9270-68a6-11e1-bc72-0050568e013c\\,Total Certainty Factor=10\\,"
+    + "BYODRegistration=Unknown\\,FeedService=false\\,EndPointPolicyID=49054ed0-68a6-11e1-bc72-0050568e013c\\,"
+    + "FirstCollection=1407397543718\\,MatchedPolicyID=49054ed0-68a6-11e1-bc72-0050568e013c\\,TimeToProfile=19\\,"
+    + "StaticGroupAssignment=false\\,NmapSubnetScanID=0\\,DeviceRegistrationStatus=NotRegistered\\,PortalUser=,"
+    + " EndpointSourceEvent=SNMPQuery Probe, EndpointIdentityGroup=Profiled, ProfilerServer=stage-pdp01.cisco.com"
+)
+
 SYSLOG_LINE_ALL = (
     "<14>1 2014-06-20T09:14:07+00:00 loggregator"
     + " d0602076-b14a-4c55-852a-981e7afeed38 DEA MSG-01"
@@ -234,6 +248,16 @@ def octet_message() -> str:
         return octet message
     """
     return OCTET_MESSAGE
+
+
+@pytest.fixture
+def octet_message_3164() -> str:
+    """Octet message.
+
+    Returns:
+        return octet message
+    """
+    return OCTET_MESSAGE_3164
 
 
 @pytest.fixture
