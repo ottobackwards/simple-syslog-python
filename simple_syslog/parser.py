@@ -194,8 +194,7 @@ class AbstractSyslogParser(SyslogParser[T], ABC):
             ValueError: if stream or consumer are None
 
         """
-        line = stream.readline()
-        while line:
+        for line in stream:
             self.consume(line, consumer)
 
     def consume_stream_with_errors(
@@ -211,8 +210,7 @@ class AbstractSyslogParser(SyslogParser[T], ABC):
             consumer: Called with T
             error_consumer: Called with any ParseError or DeviationError
         """
-        line = stream.readline()
-        while line:
+        for line in stream:
             try:
                 self.consume(line, consumer)
             except (DeviationError, ParseError) as e:

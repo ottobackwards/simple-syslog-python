@@ -22,7 +22,11 @@ from simple_syslog.keys import (
     SyslogFieldKey,
     SyslogFieldKeyDefaults,
 )
-from simple_syslog.parser import AbstractSyslogParser, Rfc3164SyslogParser
+from simple_syslog.parser import (
+    AbstractSyslogParser,
+    Rfc3164SyslogParser,
+    SyslogConsumer,
+)
 from simple_syslog.specification import SyslogSpecification
 
 expectedMessageOne = (
@@ -116,6 +120,56 @@ def test_parse_line(file_of_3164_single_ise_txt) -> None:
         expectedTimestampOne
         == data_sets[0].data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_TIMESTAMP]]
     )
+
+
+def test_parse_line_consumer(file_of_3164_single_ise_txt) -> None:
+    """Test parsing with consumer callback."""
+    builder = DefaultBuilder(
+        specification=SyslogSpecification.RFC_3164,
+        key_provider=DefaultKeyProvider(),
+        nil_policy=None,
+        allowed_deviations=None,
+    )
+    parser = Rfc3164SyslogParser(builder)
+
+    def fun(data_set: SyslogDataSet):
+        assert data_set
+        assert (
+            expectedMessageOne
+            == data_set.data[SyslogFieldKeyDefaults[SyslogFieldKey.MESSAGE]]
+        )
+        assert (
+            expectedHostNameOne
+            == data_set.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_HOSTNAME]]
+        )
+        assert (
+            expectedPriOne
+            == data_set.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PRI]]
+        )
+        assert (
+            expectedSeverityOne
+            == data_set.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PRI_SEVERITY]]
+        )
+        assert (
+            expectedFacilityOne
+            == data_set.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_PRI_FACILITY]]
+        )
+        assert (
+            expectedTimestampOne
+            == data_set.data[SyslogFieldKeyDefaults[SyslogFieldKey.HEADER_TIMESTAMP]]
+        )
+
+    with file_of_3164_single_ise_txt.open("r") as f:
+        consume_from_file(f, parser, fun)
+
+
+def consume_from_file(
+    f: TextIOBase,
+    parser: AbstractSyslogParser[SyslogDataSet],
+    consumer: SyslogConsumer[SyslogDataSet],
+) -> None:
+    """Open parse with callback."""
+    return parser.consume_stream(f, consumer)
 
 
 def generate_from_file(
