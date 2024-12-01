@@ -13,10 +13,11 @@
 #  limitations under the License.
 
 from io import TextIOBase
-from typing import Generator, List
+from typing import Generator, List, Optional, Union
 
 from simple_syslog.builder import DefaultBuilder
 from simple_syslog.data import SyslogDataSet
+from simple_syslog.exceptions import DeviationError, ParseError
 from simple_syslog.keys import (
     DefaultKeyProvider,
     SyslogFieldKey,
@@ -24,6 +25,7 @@ from simple_syslog.keys import (
 )
 from simple_syslog.parser import (
     AbstractSyslogParser,
+    ErrorConsumer,
     Rfc3164SyslogParser,
     SyslogConsumer,
 )
@@ -163,12 +165,42 @@ def test_parse_line_consumer(file_of_3164_single_ise_txt) -> None:
         consume_from_file(f, parser, fun)
 
 
+def test_parse_line_consumer_and_error(file_of_3164_many_with_errors_txt) -> None:
+    """Test parsing with consumer callback."""
+    builder = DefaultBuilder(
+        specification=SyslogSpecification.RFC_3164,
+        key_provider=DefaultKeyProvider(),
+        nil_policy=None,
+        allowed_deviations=None,
+    )
+    parser = Rfc3164SyslogParser(builder)
+    set_count = 0
+    err_count = 0
+
+    def fun(_: SyslogDataSet):
+        nonlocal set_count
+        set_count = set_count + 1
+
+    def er(line: str, err: Union[ParseError, DeviationError]) -> None:
+        nonlocal err_count
+        err_count = err_count + 1
+        assert isinstance(err, ParseError)
+
+    with file_of_3164_many_with_errors_txt.open("r") as f:
+        consume_from_file(f, parser, fun, er)
+    assert set_count == 3
+    assert err_count == 1
+
+
 def consume_from_file(
     f: TextIOBase,
     parser: AbstractSyslogParser[SyslogDataSet],
     consumer: SyslogConsumer[SyslogDataSet],
+    error_consumer: Optional[ErrorConsumer] = None,
 ) -> None:
-    """Open parse with callback."""
+    """Open parse with callback and optional error consumer."""
+    if error_consumer is not None:
+        return parser.consume_stream_with_errors(f, consumer, error_consumer)
     return parser.consume_stream(f, consumer)
 
 

@@ -215,6 +215,9 @@ class AbstractSyslogParser(SyslogParser[T], ABC):
                 self.consume(line, consumer)
             except (DeviationError, ParseError) as e:
                 error_consumer(line, e)
+            except Exception as generic:
+                pe = ParseError(generic)
+                error_consumer(line, pe)
 
 
 class Rfc5424SyslogParser(AbstractSyslogParser[T]):
