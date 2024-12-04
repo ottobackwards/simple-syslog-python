@@ -14,9 +14,11 @@
      limitations under the License. Copyright 2022-2023 simple-syslog authors
      All rights reserved.
 -->
-[![Tests](https://github.com/palindromicity/simple-syslog-python/workflows/Tests/badge.svg)](https://github.com/palindromicity/simple-syslog-python/actions?workflow=Tests)
 
 # simple-syslog-python
+
+[![Tests](https://github.com/palindromicity/simple-syslog-python/workflows/Tests/badge.svg)](https://github.com/palindromicity/simple-syslog-python/actions?workflow=Tests)
+
 Python 3 Implementation of simple-syslog
 
 poetry
