@@ -29,6 +29,7 @@ from simple_syslog.parser import (
     Rfc3164SyslogParser,
     SyslogConsumer,
 )
+from simple_syslog.policy import AllowableDeviation
 from simple_syslog.specification import SyslogSpecification
 
 expectedMessageOne = (
@@ -192,13 +193,55 @@ def test_parse_line_consumer_and_error(file_of_3164_many_with_errors_txt) -> Non
     assert err_count == 1
 
 
+def test_parse_lines(file_of_3164_many_ise_txt) -> None:
+    """Test that we can parse many lines."""
+    builder = DefaultBuilder(
+        specification=SyslogSpecification.RFC_3164,
+        key_provider=DefaultKeyProvider(),
+        nil_policy=None,
+        allowed_deviations=None,
+    )
+    parser = Rfc3164SyslogParser(builder)
+    with file_of_3164_many_ise_txt.open("r") as f:
+        datasets = read_from_file(f, parser)
+        assert len(datasets) == 308
+
+
+def test_parse_lines_mixed_dates(file_of_3164_two_ise_mix_date) -> None:
+    """Test that we can parse lines with different date formats mixed in."""
+    builder = DefaultBuilder(
+        specification=SyslogSpecification.RFC_3164,
+        key_provider=DefaultKeyProvider(),
+        nil_policy=None,
+        allowed_deviations=None,
+    )
+    parser = Rfc3164SyslogParser(builder)
+    with file_of_3164_two_ise_mix_date.open("r") as f:
+        datasets = read_from_file(f, parser)
+        assert len(datasets) == 2
+
+
+def test_parse_lines_deviations(file_of_3164_many_ise_deviations_txt) -> None:
+    """Test that we can parse line with deviations."""
+    builder = DefaultBuilder(
+        specification=SyslogSpecification.RFC_3164,
+        key_provider=DefaultKeyProvider(),
+        nil_policy=None,
+        allowed_deviations=[AllowableDeviation.PRIORITY],
+    )
+    parser = Rfc3164SyslogParser(builder)
+    with file_of_3164_many_ise_deviations_txt.open("r") as f:
+        datasets = read_from_file(f, parser)
+        assert len(datasets) == 308
+
+
 def consume_from_file(
     f: TextIOBase,
     parser: AbstractSyslogParser[SyslogDataSet],
     consumer: SyslogConsumer[SyslogDataSet],
     error_consumer: Optional[ErrorConsumer] = None,
 ) -> None:
-    """Open parse with callback and optional error consumer."""
+    """Parse a file with Callback and optional error consumer."""
     if error_consumer is not None:
         return parser.consume_stream_with_errors(f, consumer, error_consumer)
     return parser.consume_stream(f, consumer)
@@ -207,5 +250,15 @@ def consume_from_file(
 def generate_from_file(
     f: TextIOBase, parser: AbstractSyslogParser[SyslogDataSet]
 ) -> Generator[SyslogDataSet, None, None]:
-    """Open a Path and return the generator."""
+    """Return the generator for a file."""
     return parser.generate(f)
+
+
+def read_from_file(
+    f: TextIOBase, parser: AbstractSyslogParser[SyslogDataSet]
+) -> List[SyslogDataSet]:
+    """Return the results of parsing each line of a file."""
+    datasets = []
+    for line in f.readlines():
+        datasets.append(parser.parse(line))
+    return datasets
