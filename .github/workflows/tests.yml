@@ -16,4 +16,5 @@ jobs:
       - run: pip install nox==2024.10.9
       - run: pip install nox-poetry==1.1.0
       - run: pip install poetry==2.0.1
+      - run: pip install poetry-plugin-export==1.8
       - run: nox --python ${{ matrix.python-version }}
